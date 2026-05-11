@@ -3,9 +3,10 @@
 The Neuro-Evolution optimizer in NeuVNav requires a **fitness oracle** — a model
 that scores a candidate set of controller parameters without running hardware.
 
-We provide a browser-based simulation of the h-aero® LTA platform physics
-as the fitness oracle. The simulation is available to ENFIELD project
-collaborators upon request.
+We provide a publicly accessible browser-based simulation of the h-aero® LTA
+platform physics as the fitness oracle:
+
+**[https://laps.h-aero.com/NeuVNav/](https://laps.h-aero.com/NeuVNav/)**
 
 ## What it demonstrates
 
