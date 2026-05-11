@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="510" viewBox="0 0 900 510">
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#46AC33"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="510" fill="#FFFFFF"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="900" height="44" fill="#1E293B"/>
+  <text x="450" y="28" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#46AC33">NeuVNav · System Architecture</text>
+
+  <!-- ═══ DARK MODULE BOXES ═══ -->
+
+  <!-- laps_line  x=30 y=80 w=165 h=85 -->
+  <rect x="30" y="80" width="165" height="85" rx="6" fill="#1E293B"/>
+  <text x="112" y="114" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">laps_line</text>
+  <text x="112" y="131" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8">Vision · HSV Pipeline</text>
+
+  <!-- laps_snn  x=300 y=80 w=200 h=85 -->
+  <rect x="300" y="80" width="200" height="85" rx="6" fill="#1E293B"/>
+  <text x="400" y="114" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">laps_snn</text>
+  <text x="400" y="131" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8">SNN Controller · State Machine</text>
+
+  <!-- laps_ne  x=30 y=285 w=165 h=85 -->
+  <rect x="30" y="285" width="165" height="85" rx="6" fill="#1E293B"/>
+  <text x="112" y="319" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">laps_ne</text>
+  <text x="112" y="336" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8">NE Optimizer · ES + 9-KPI Fitness</text>
+
+  <!-- LapsInterface  x=545 y=175 w=185 h=85 -->
+  <rect x="545" y="175" width="185" height="85" rx="6" fill="#1E293B"/>
+  <text x="637" y="209" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">LapsInterface</text>
+  <text x="637" y="226" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8">Abstract Flight API</text>
+
+  <!-- ═══ LIGHT EXTERNAL BOXES ═══ -->
+
+  <!-- sim.php  x=755 y=90 w=135 h=85 -->
+  <rect x="755" y="90" width="135" height="85" rx="6" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="822" y="124" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1E293B">sim.php</text>
+  <text x="822" y="141" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#475569">Physics Simulator</text>
+  <text x="822" y="155" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#475569">FitnessOracle</text>
+
+  <!-- RPi / LAPS  x=755 y=295 w=135 h=85 -->
+  <rect x="755" y="295" width="135" height="85" rx="6" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="822" y="329" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1E293B">RPi / LAPS</text>
+  <text x="822" y="346" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#475569">Hardware</text>
+  <text x="822" y="360" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#475569">orient · thrust · riref</text>
+
+  <!-- MockOracle  x=30 y=435 w=165 h=65 -->
+  <rect x="30" y="435" width="165" height="65" rx="6" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="112" y="466" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1E293B">MockOracle</text>
+  <text x="112" y="483" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#475569">Unit Tests · No Hardware</text>
+
+  <!-- ═══ ARROWS ═══ -->
+
+  <!-- 1. laps_line → laps_snn  (detected, cx, fw)
+       Label placed at y=172 — BELOW both boxes (box bottoms at y=165); no box in x=195–300 at that y -->
+  <line x1="195" y1="122" x2="298" y2="122"
+        stroke="#46AC33" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="197" y="162" width="97" height="13" fill="#FFFFFF"/>
+  <text x="246" y="172" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="8" font-style="italic" fill="#475569">(detected, cx, fw)</text>
+
+  <!-- 2. laps_snn → LapsInterface  orient / thrust / riref
+       Route: down from laps_snn bottom-centre (400,165) → right to LapsInterface left (543,217)
+       Labels sit at x=408 between laps_snn bottom (y=165) and LapsInterface centre (y=217): CLEAR -->
+  <path d="M400,165 L400,217 L543,217"
+        stroke="#46AC33" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="405" y="185" width="68" height="25" fill="#FFFFFF"/>
+  <text x="410" y="197" text-anchor="start"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">orient /</text>
+  <text x="410" y="208" text-anchor="start"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">thrust / riref</text>
+
+  <!-- 3. laps_ne → laps_snn  SNNParams
+       Elbow via x=248 (gap between laps_line right=195 and laps_snn left=300).
+       Label at x=258, y=232: laps_snn ends at y=165 ✓  laps_ne starts at y=285 ✓  CLEAR -->
+  <path d="M195,315 L248,315 L248,138 L298,138"
+        stroke="#46AC33" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="255" y="222" width="64" height="13" fill="#FFFFFF"/>
+  <text x="258" y="232" text-anchor="start"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">SNNParams</text>
+
+  <!-- 4. laps_ne → sim.php  evaluate(params)  dashed = offline pre-flight  route above boxes -->
+  <path d="M195,305 L248,305 L248,56 L822,56 L822,88"
+        stroke="#46AC33" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arr)"/>
+  <text x="535" y="51" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">evaluate(params) · offline NE</text>
+
+  <!-- 5. laps_ne → MockOracle  evaluate(params)  straight down
+       Label at x=123 (right of arrow at x=112); y=406 is in open space between laps_ne and MockOracle -->
+  <line x1="112" y1="370" x2="112" y2="433"
+        stroke="#46AC33" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="121" y="396" width="82" height="13" fill="#FFFFFF"/>
+  <text x="124" y="406" text-anchor="start"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">evaluate(params)</text>
+
+  <!-- 6. LapsInterface → sim.php  [simulation]
+       Label text-anchor="end" at x=750: extends LEFT to ~x=695.
+       At y=168: LapsInterface top=175 (not yet present) ✓  sim.php left=755 ✓  CLEAR -->
+  <path d="M730,207 L742,207 L742,132 L753,132"
+        stroke="#46AC33" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="692" y="158" width="60" height="13" fill="#FFFFFF"/>
+  <text x="750" y="168" text-anchor="end"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">[simulation]</text>
+
+  <!-- 7. LapsInterface → RPi LAPS  [hardware]
+       Label text-anchor="end" at x=750: extends LEFT to ~x=705.
+       At y=291: LapsInterface bottom=260 ✓  RPi top=295 (not yet) ✓  CLEAR -->
+  <path d="M730,227 L742,227 L742,337 L753,337"
+        stroke="#46AC33" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="705" y="281" width="47" height="13" fill="#FFFFFF"/>
+  <text x="750" y="291" text-anchor="end"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">[hardware]</text>
+
+  <!-- Camera Frame annotation -->
+  <text x="32" y="76" font-family="Segoe UI, Arial, sans-serif" font-size="9"
+        font-style="italic" fill="#46AC33">▲ Camera Frame</text>
+
+</svg>

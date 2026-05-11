@@ -1,0 +1,11 @@
+<figure style="text-align:center;margin:2em 0;">
+  <img src="system_architecture.svg" alt="NeuVNav System Architecture"
+       style="max-width:100%;height:auto;">
+  <figcaption><strong>Fig. 2.</strong> NeuVNav system architecture.
+    <em>laps_line</em> provides visual boundary detection via HSV pipeline;
+    <em>laps_snn</em> implements the reactive SNN controller as a state machine;
+    <em>laps_ne</em> runs offline neuro-evolution using sim.php as fitness oracle.
+    LapsInterface decouples AI modules from hardware (RPi/LAPS) and simulation
+    (sim.php / MockOracle). Dashed arrow indicates offline pre-flight optimisation.
+  </figcaption>
+</figure>

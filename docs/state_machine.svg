@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#46AC33"/>
+    </marker>
+    <marker id="arr-back" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#46AC33"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="400" fill="#FFFFFF"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="900" height="44" fill="#1E293B"/>
+  <text x="450" y="28" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#46AC33">NeuVNav · SNN State Machine</text>
+
+  <!-- ═══ STATE NODES ═══ -->
+  <!-- CRUISE  cx=140 cy=200 r=52 -->
+  <circle cx="140" cy="210" r="52" fill="#1E293B"/>
+  <text x="140" y="205" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">CRUISE</text>
+  <text x="140" y="222" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8">thrust = F</text>
+
+  <!-- BRAKING  cx=340 cy=210 r=52 -->
+  <circle cx="340" cy="210" r="52" fill="#1E293B"/>
+  <text x="340" y="205" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">BRAKING</text>
+  <text x="340" y="222" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8">thrust = T</text>
+
+  <!-- TURNING  cx=560 cy=210 r=52 -->
+  <circle cx="560" cy="210" r="52" fill="#1E293B"/>
+  <text x="560" y="205" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">TURNING</text>
+  <text x="560" y="222" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8">orient(orit+180°)</text>
+
+  <!-- RESTORE  cx=760 cy=210 r=52 -->
+  <circle cx="760" cy="210" r="52" fill="#1E293B"/>
+  <text x="760" y="205" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">RESTORE</text>
+  <text x="760" y="222" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#94A3B8">thrust restored</text>
+
+  <!-- ═══ FORWARD ARROWS (top arc) ═══ -->
+
+  <!-- CRUISE → BRAKING  label: "line detected / wait t1" -->
+  <path d="M192,186 Q240,140 288,186"
+        stroke="#46AC33" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="240" y="130" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">line detected</text>
+  <text x="240" y="142" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">wait t₁</text>
+
+  <!-- BRAKING → TURNING  label: "t1 elapsed / orient(orit+180°)" -->
+  <path d="M392,186 Q450,140 508,186"
+        stroke="#46AC33" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="450" y="130" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">t₁ elapsed</text>
+  <text x="450" y="142" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">orient(orit+180°)</text>
+
+  <!-- TURNING → RESTORE  label: "t2 elapsed / restore thrust" -->
+  <path d="M612,186 Q660,140 708,186"
+        stroke="#46AC33" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="660" y="130" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">t₂ elapsed</text>
+  <text x="660" y="142" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">restore thrust</text>
+
+  <!-- RESTORE → CRUISE  (bottom arc looping back) -->
+  <!-- Route: RESTORE bottom → arc below → CRUISE bottom -->
+  <path d="M760,262 Q760,340 450,360 Q140,360 140,262"
+        stroke="#46AC33" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="450" y="356" text-anchor="middle"
+        font-family="Segoe UI, Arial, sans-serif" font-size="9" font-style="italic" fill="#475569">t₃ elapsed / thrust = F</text>
+
+  <!-- ═══ NE genome annotation ═══ -->
+  <rect x="30" y="60" width="210" height="56" rx="5" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.2"/>
+  <text x="40" y="78" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="bold" fill="#1E293B">NE genome {t₁, t₂, T, t₃, F}</text>
+  <text x="40" y="93" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#475569">t₁, t₂, t₃ — phase timing (s)</text>
+  <text x="40" y="106" font-family="Segoe UI, Arial, sans-serif" font-size="9" fill="#475569">T — braking thrust · F — cruise thrust</text>
+
+</svg>

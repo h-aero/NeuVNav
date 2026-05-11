@@ -6,7 +6,14 @@ offline, using a physics simulation as fitness oracle. Ported from the
 NeuVNav JavaScript simulator (sim.php).
 
 Algorithm: (1+lambda)-ES with per-generation sigma adaptation (1/5 success rule).
-Fitness oracle is pluggable -- implement FitnessOracle for your simulation.
+Scale factors follow Rechenberg (1973); convergence properties for (1+lambda)-ES
+analysed in Finck (2011), Sec. 3.2. Fitness oracle is pluggable -- implement
+FitnessOracle for your simulation.
+
+References:
+    Rechenberg, I. (1973). Evolutionsstrategie. Frommann-Holzboog.
+    Finck, S. (2011). Toward a theory of randomized search heuristics.
+        Doctoral dissertation, Universitat des Saarlandes.
 
 ENFIELD WP2 -- funded by the European Union, grant No 101120657.
 """
@@ -165,9 +172,22 @@ def _mutate(best, sigma, active_keys):
     return candidate
 
 
-def _adapt_sigma(sigma, p_success, active_keys):
-    """1/5 success rule: scale up if success rate > 20%, down otherwise."""
-    scale = 1.22 if p_success > 0.2 else 0.82
+# 1/5 success rule scale factors (Rechenberg 1973; Finck 2011 §3.2).
+# Reciprocal pair chosen so that one success in five trials leaves sigma unchanged:
+#   _C_UP^1 * _C_DOWN^4 == 1  =>  _C_UP == _C_DOWN ** (-4)
+_C_UP   = 1.22   # increase sigma when success rate exceeds threshold
+_C_DOWN = 0.82   # decrease sigma otherwise  (approx. 1 / _C_UP)
+
+
+def _adapt_sigma(sigma, p_success, active_keys, threshold=0.2):
+    """1/5 success rule: scale up if success rate > threshold, down otherwise.
+
+    threshold defaults to 0.2 (one-fifth), optimal for (1+1)-ES on sphere
+    models (Rechenberg 1973). For larger lambda the neutral success rate
+    shifts slightly; expose threshold so callers can tune if needed
+    (see Finck 2011, Sec. 3.2 for the theoretical treatment).
+    """
+    scale = _C_UP if p_success > threshold else _C_DOWN
     for key in active_keys:
         sigma[key] = _clamp(sigma[key] * scale, SIGMA_MIN[key], SIGMA_MAX[key])
 
@@ -181,6 +201,7 @@ def optimize(
     seed=None,
     verbose=False,
     on_generation=None,
+    sigma_threshold=0.2,
 ):
     """
     Run the Neuro-Evolution optimizer.
@@ -204,6 +225,10 @@ def optimize(
     on_generation : callable or None
         Called after each generation: on_generation(gen, best_fitness, best_params).
         Useful for progress bars or early stopping.
+    sigma_threshold : float
+        Success-rate threshold for the 1/5 rule. Default 0.2. Increase slightly
+        for large lambda where the neutral success rate exceeds one-fifth
+        (Finck 2011, Sec. 3.2).
 
     Returns
     -------
@@ -239,7 +264,7 @@ def optimize(
                 gen_best_fit = fit
                 successes += 1
 
-        _adapt_sigma(sigma, successes / lam, active_keys)
+        _adapt_sigma(sigma, successes / lam, active_keys, threshold=sigma_threshold)
 
         if gen_best_fit > best_fit:
             best = gen_best
