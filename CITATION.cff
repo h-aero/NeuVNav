@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "NeuVNav: Neuro-Evolving Visual Navigation for Low SWaP LTA UAVs"
+abstract: >
+  AI navigation modules for autonomous, GPS-denied indoor navigation of
+  Lighter-Than-Air (LTA) unmanned platforms. Implements a Spiking Neural
+  Network reactive controller and a Neuro-Evolution optimizer for
+  boundary patrol on the h-aero semirigid LTA platform.
+authors:
+  - family-names: Singer
+    given-names: Csaba
+    affiliation: "Hybrid Airplane Technologies GmbH"
+    email: "csaba@h-aero.com"
+repository-code: "https://github.com/h-aero/NeuVNav"
+url: "https://laps.h-aero.com/NeuVNav/"
+license: Apache-2.0
+version: "1.0.0"
+date-released: "2026-05-11"
+keywords:
+  - LTA
+  - UAV
+  - autonomous navigation
+  - spiking neural network
+  - neuro-evolution
+  - computer vision
+  - GPS-denied
+  - indoor navigation
+  - lighter-than-air
+preferred-citation:
+  type: article
+  title: "NeuVNav: Neuro-Evolving Visual Navigation for Low SWaP Lighter-Than-Air UAVs"
+  authors:
+    - family-names: Singer
+      given-names: Csaba
+      affiliation: "Hybrid Airplane Technologies GmbH"
+  year: 2026
+  status: submitted
+  notes: "Manuscript submitted. DOI and venue will be updated upon publication."
+references:
+  - type: thesis
+    title: >
+      Entwicklung einer autonomen Steuerung fuer Unmanned Aerial Vehicles
+      mithilfe von Methoden der Bildverarbeitung
+    authors:
+      - family-names: Hufen
+        given-names: Florian
+    institution:
+      name: "Hochschule Anhalt"
+    year: 2019
+    thesis-type: "Master's thesis"
