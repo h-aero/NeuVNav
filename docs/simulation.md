@@ -3,10 +3,9 @@
 The Neuro-Evolution optimizer in NeuVNav requires a **fitness oracle** — a model
 that scores a candidate set of controller parameters without running hardware.
 
-We provide a publicly accessible browser-based simulation of the h-aero® LTA
-platform physics as the fitness oracle demo:
-
-**[https://laps.h-aero.com/NeuVNav/](https://laps.h-aero.com/NeuVNav/)**
+We provide a browser-based simulation of the h-aero® LTA platform physics
+as the fitness oracle. The simulation is available to ENFIELD project
+collaborators upon request.
 
 ## What it demonstrates
 
@@ -32,15 +31,16 @@ and receives a scalar fitness score. The NE optimizer treats this as a black box
 ## Running a fitness evaluation
 
 ```python
-from python.laps_ne import optimize, SimulationOracle
+from python.laps_ne import optimize, MockOracle
 
-oracle = SimulationOracle(endpoint="https://laps.h-aero.com/NeuVNav/api/fitness")
+oracle = MockOracle()          # local physics model for development
 result = optimize(oracle, n_gen=20, lam=10)
 print(result.best_params)
 ```
 
-> **Note:** The live simulation endpoint is rate-limited. For batch evaluation
-> during development, use `MockOracle` with a local physics model.
+> **Note:** For production use, replace `MockOracle` with a `SimulationOracle`
+> wrapping a live fitness endpoint. The reference implementation uses a
+> server-side PHP physics model as the oracle backend.
 
 ## Reference
 
