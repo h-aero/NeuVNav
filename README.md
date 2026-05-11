@@ -3,10 +3,11 @@
 AI navigation modules for autonomous, GPS-denied indoor navigation of
 Lighter-Than-Air (LTA) unmanned platforms.
 
-> **Funding:** This work is funded by the European Union under grant agreement No 101120657
-> (ENFIELD Innovation Schemes OC1-2025-TIS-01-165).
+> **Funding:** This repository is part of a sub-project that has received funding from the
+> European Union's Horizon Europe programme via an Open Call issued and executed under the
+> ENFIELD project (Grant Agreement no. 101120657, OC1-2025-TIS-01-165).
 > Views and opinions expressed are those of the authors only and do not necessarily reflect
-> those of the European Union or the European Research Executive Agency.
+> those of the European Union or the granting authority.
 
 ---
 
